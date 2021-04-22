@@ -60,6 +60,24 @@ function resetForm() {
   document.getElementById("errors").style.display = "none";
 }
 
+function updateData() {
+  if (!validation()) {
+    return;
+  }
+  var id = document.getElementById("idUpdate").value;
+  var desc = document.getElementById("desc").value;
+  var amount = document.getElementById("amount").value;
+  var value = document.getElementById("value").value;
+
+  list[id] = {
+    "desc": desc,
+    "amount": amount,
+    "value": value
+  };
+  resetForm();
+  setList(list);
+}
+
 function saveListStorage(list) {
   var jsonStr = JSON.stringify(list);
   localStorage.setItem("list", jsonStr);
