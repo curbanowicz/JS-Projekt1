@@ -1,1 +1,101 @@
+#navTitle {
+  text-align: center;
+}
 
+.form-inline button {
+  width: 75px;
+  height: auto;
+  margin: 10px auto auto auto;
+  padding: 5px;
+  border-radius: 10px;
+  background-color: darkgray;
+  color: white;
+}
+
+.form-group {
+  margin: 10px auto auto auto;
+}
+
+h3 {
+  width: 260px;
+  height: auto;
+  margin: 0 auto auto auto;
+  padding: 20px;
+}
+
+.form-inline {
+  width: 260px;
+  height: auto;
+  margin: 20px auto auto auto;
+  padding: 20px;
+  border: 3px solid black;
+  border-radius: 10px;
+}
+
+table {
+  width: 50%;
+  margin: 0 auto;
+  border-collapse: collapse;
+  counter-reset: section;
+  margin-top: 20px;
+}
+
+.count:before {
+  counter-increment: section;
+  content: counter(section);
+}
+
+table caption {
+  font: 15px sans-serif;
+  text-shadow: 2px 2px lightgray;
+}
+
+table thead tr {
+  background-color: gray;
+  color: white;
+}
+
+table thead tr th {
+  padding: 3px 8px;
+  border-bottom: 2px solid black;
+  border-right: 1px solid black;
+}
+
+table tbody tr:hover {
+  background-color: lightgray;
+}
+
+table tbody td {
+  border: 1px solid gray;
+  padding: 3px 6px;
+  cursor: pointer;
+}
+
+.selected {
+  background-color: lightgrey;
+  color: #fff;
+  font-weight: bold
+}
+
+table button {
+  border-radius: 10px;
+  background-color: darkgray;
+  color: white;
+  padding: 3px 15px;
+  margin: auto 10px auto 10px;
+}
+
+.container {
+  width: 75px;
+  height: auto;
+  margin: 10px auto auto auto;
+  padding: 5px;
+}
+
+h4 {
+  color: green;
+}
+
+#errors {
+  text-align: center;
+}
