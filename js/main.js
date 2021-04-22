@@ -1,12 +1,13 @@
 var list = [];
 
 function setList(list) {
-  var table = '<thead><tr><td>Nazwa produktu</td><td>Ilość</td><td>Cena</td><td>Operacje</td></tr></thead><tbody>';
+  var table = '<thead><tr><td>ID</td><td>Nazwa produktu</td><td>Ilość</td><td>Cena</td><td>Operacje</td></tr></thead><tbody>';
   for (var key in list) {
-    table += '<tr><td>' + list[key].desc + '</td><td>' + list[key].amount + '</td><td>' + list[key].value + '</td><td><button class="btn btn-default" onclick="setUpdate(' + key + ');" >Edytuj</button>  <button class="btn btn-default" onclick="deleteData(' + key + ');" >Usuń</button></td></tr>';
+    table += '<tr><td>' + (parseInt(key) + 1) + '</td><td>' + formatDesc(list[key].desc) + '</td><td>' + parseInt(list[key].amount) + '</td><td>' + formatValue(list[key].value) + '</td><td><button class="btn btn-default" onclick="setUpdate(' + key + ');" >Edytuj</button>  <button class="btn btn-default" onclick="deleteData(' + key + ');" >Usuń</button></td></tr>';
   }
   table += '</tbody>';
   document.getElementById("listTable").innerHTML = table;
+  getTotal(list);
   saveListStorage(list);
 }
 
@@ -17,6 +18,19 @@ function getTotal(list) {
   }
 
   document.getElementById("totalValue").innerHTML = formatValue(total);
+}
+
+function formatDesc(desc) {
+  var str = desc.toLowerCase();
+  str = str.charAt(0).toUpperCase() + str.slice(1);
+  return str;
+}
+
+function formatValue(value) {
+  var str = parseFloat(value).toFixed(2) + "";
+  str = str.replace(".", ",");
+  str = str + " ZŁ";
+  return str;
 }
 
 function addData() {
