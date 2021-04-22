@@ -14,7 +14,7 @@
     <div class="container-fluid">
       <div class="navbar-header">
         <a id="navTitle" class="navbar-brand">
-          <h1>Paragon</h1>
+          <h1>Paragon <span id="time"></span></h1>
         </a>
       </div>
     </div>
@@ -55,6 +55,15 @@
       <h4 class="text-center text-success">Suma: <span id="totalValue"> 0,00 ZŁ</span></h4>
     </div>
   </nav>
+  <script src="js/main.js"></script>
+  <script>
+    function getCurrentTime() {
+    var d = new Date();
+    var nd = d.toLocaleDateString('pl-PL')
+    document.getElementById("time").innerHTML = nd;
+    }
+    setInterval('getCurrentTime()', 1000);
+</script>
 </body>
 
 </html>
