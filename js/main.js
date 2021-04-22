@@ -10,6 +10,22 @@ function setList(list) {
   saveListStorage(list);
 }
 
+function addData() {
+  if (!validation()) {
+    return;
+  }
+  var desc = document.getElementById("desc").value;
+  var amount = document.getElementById("amount").value;
+  var value = document.getElementById("value").value;
+
+  list.unshift({
+    "desc": desc,
+    "amount": amount,
+    "value": value
+  });
+  setList(list);
+}
+
 function saveListStorage(list) {
   var jsonStr = JSON.stringify(list);
   localStorage.setItem("list", jsonStr);
