@@ -26,6 +26,17 @@ function addData() {
   setList(list);
 }
 
+function setUpdate(id) {
+  var obj = list[id];
+  document.getElementById("desc").value = obj.desc;
+  document.getElementById("amount").value = obj.amount;
+  document.getElementById("value").value = obj.value;
+  document.getElementById("btnUpdate").style.display = "inline-block";
+  document.getElementById("btnAdd").style.display = "none";
+
+  document.getElementById("inputIDUpdate").innerHTML = '<input id="idUpdate" type="hidden" value="' + id + '">';
+}
+
 function saveListStorage(list) {
   var jsonStr = JSON.stringify(list);
   localStorage.setItem("list", jsonStr);
