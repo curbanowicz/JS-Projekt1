@@ -1,16 +1,5 @@
 var list = [];
 
-function setList(list) {
-  var table = '<thead><tr><td>ID</td><td>Nazwa produktu</td><td>Ilość</td><td>Cena</td><td>Operacje</td></tr></thead><tbody>';
-  for (var key in list) {
-    table += '<tr><td>' + (parseInt(key) + 1) + '</td><td>' + formatDesc(list[key].desc) + '</td><td>' + parseInt(list[key].amount) + '</td><td>' + formatValue(list[key].value) + '</td><td><button class="btn btn-default" onclick="setUpdate(' + key + ');" >Edytuj</button>  <button class="btn btn-default" onclick="deleteData(' + key + ');" >Usuń</button></td></tr>';
-  }
-  table += '</tbody>';
-  document.getElementById("listTable").innerHTML = table;
-  getTotal(list);
-  saveListStorage(list);
-}
-
 function getTotal(list) {
   var total = 0;
   for (var key in list) {
@@ -20,11 +9,25 @@ function getTotal(list) {
   document.getElementById("totalValue").innerHTML = formatValue(total);
 }
 
+function setList(list) {
+  var table = '<thead><tr><td>ID</td><td>Nazwa produktu</td><td>Ilość</td><td>Cena</td><td>Operacje</td></tr></thead><tbody>';
+  for (var key in list) {
+    table += '<tr><td>' + (parseInt(key) + 1) + '</td><td>' + formatDesc(list[key].desc) + '</td><td>' + parseInt(list[key].amount) + '</td><td>' + formatValue(list[key].value) + '</td><td><button class="btn btn-default" onclick="setUpdate(' + key + ');" >Edytuj</button>  <button class="btn btn-default" onclick="deleteData(' + key + ');" >Usuń</button></td></tr>';
+  }
+  table += '</tbody>';
+  document.getElementById("listTable").innerHTML = table;
+  getSelectedRow();
+  getTotal(list);
+  saveListStorage(list);
+
+}
+
 function formatDesc(desc) {
   var str = desc.toLowerCase();
   str = str.charAt(0).toUpperCase() + str.slice(1);
   return str;
 }
+
 
 function formatValue(value) {
   var str = parseFloat(value).toFixed(2) + "";
@@ -60,19 +63,6 @@ function setUpdate(id) {
   document.getElementById("inputIDUpdate").innerHTML = '<input id="idUpdate" type="hidden" value="' + id + '">';
 }
 
-function deleteData(id) {
-  if (id === list.length - 1) {
-    list.pop();
-  } else if (id === 0) {
-    list.shift();
-  } else {
-    var arrAuxIni = list.slice(0, id);
-    var arrAuxEnd = list.slice(id + 1);
-    list = arrAuxIni.concat(arrAuxEnd);
-  }
-  setList(list);
-}
-
 function resetForm() {
   document.getElementById("desc").value = "";
   document.getElementById("amount").value = "";
@@ -101,16 +91,17 @@ function updateData() {
   setList(list);
 }
 
-function deleteList() {
-  if (confirm("Czy na pewno chcesz usunąć wszystko?")) {
-    list = [];
-    setList(list);
+function deleteData(id) {
+  if (id === list.length - 1) {
+    list.pop();
+  } else if (id === 0) {
+    list.shift();
+  } else {
+    var arrStart = list.slice(0, id);
+    var arrEnd = list.slice(id + 1);
+    list = arrStart.concat(arrEnd);
   }
-}
-
-function saveListStorage(list) {
-  var jsonStr = JSON.stringify(list);
-  localStorage.setItem("list", jsonStr);
+  setList(list);
 }
 
 function validation() {
@@ -149,6 +140,18 @@ function validation() {
 
 }
 
+function deleteList() {
+  if (confirm("Czy na pewno chcesz usunąć wszystko?")) {
+    list = [];
+    setList(list);
+  }
+}
+
+function saveListStorage(list) {
+  var jsonStr = JSON.stringify(list);
+  localStorage.setItem("list", jsonStr);
+}
+
 function initListStorage() {
   var testList = localStorage.getItem("list");
   if (testList) {
@@ -157,8 +160,8 @@ function initListStorage() {
   setList(list);
 }
 initListStorage();
-
 var index;
+
 function getSelectedRow() {
   index = undefined;
   var table = document.getElementById("listTable");
@@ -167,13 +170,18 @@ function getSelectedRow() {
       if (typeof index !== "undefined") {
         table.rows[index].classList.toggle("selected");
       }
+
       index = this.rowIndex;
       this.classList.toggle("selected");
+
     };
   }
+
 }
 
+
 getSelectedRow();
+
 
 function upNdown(direction) {
   var rows = document.getElementById("listTable").rows,
@@ -193,3 +201,9 @@ function upNdown(direction) {
   }
 }
 
+function getCurrentTime() {
+  var d = new Date();
+  var nd = d.toLocaleDateString('pl-PL')
+  document.getElementById("time").innerHTML = nd;
+}
+setInterval('getCurrentTime()', 1000);
