@@ -10,6 +10,15 @@ function setList(list) {
   saveListStorage(list);
 }
 
+function getTotal(list) {
+  var total = 0;
+  for (var key in list) {
+    total += list[key].value * list[key].amount;
+  }
+
+  document.getElementById("totalValue").innerHTML = formatValue(total);
+}
+
 function addData() {
   if (!validation()) {
     return;
