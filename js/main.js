@@ -87,6 +87,13 @@ function updateData() {
   setList(list);
 }
 
+function deleteList() {
+  if (confirm("Czy na pewno chcesz usunąć wszystko?")) {
+    list = [];
+    setList(list);
+  }
+}
+
 function saveListStorage(list) {
   var jsonStr = JSON.stringify(list);
   localStorage.setItem("list", jsonStr);
