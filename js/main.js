@@ -157,3 +157,39 @@ function initListStorage() {
   setList(list);
 }
 initListStorage();
+
+var index;
+function getSelectedRow() {
+  index = undefined;
+  var table = document.getElementById("listTable");
+  for (var i = 1; i < table.rows.length; i++) {
+    table.rows[i].onclick = function() {
+      if (typeof index !== "undefined") {
+        table.rows[index].classList.toggle("selected");
+      }
+      index = this.rowIndex;
+      this.classList.toggle("selected");
+    };
+  }
+}
+
+getSelectedRow();
+
+function upNdown(direction) {
+  var rows = document.getElementById("listTable").rows,
+    parent = rows[index].parentNode;
+  if (direction === "up") {
+    if (index > 1) {
+      parent.insertBefore(rows[index], rows[index - 1]);
+      index--;
+    }
+  }
+
+  if (direction === "down") {
+    if (index < rows.length - 1) {
+      parent.insertBefore(rows[index + 1], rows[index]);
+      index++;
+    }
+  }
+}
+
