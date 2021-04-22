@@ -37,6 +37,19 @@ function setUpdate(id) {
   document.getElementById("inputIDUpdate").innerHTML = '<input id="idUpdate" type="hidden" value="' + id + '">';
 }
 
+function deleteData(id) {
+  if (id === list.length - 1) {
+    list.pop();
+  } else if (id === 0) {
+    list.shift();
+  } else {
+    var arrAuxIni = list.slice(0, id);
+    var arrAuxEnd = list.slice(id + 1);
+    list = arrAuxIni.concat(arrAuxEnd);
+  }
+  setList(list);
+}
+
 function saveListStorage(list) {
   var jsonStr = JSON.stringify(list);
   localStorage.setItem("list", jsonStr);
