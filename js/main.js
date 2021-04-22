@@ -90,3 +90,12 @@ function validation() {
   }
 
 }
+
+function initListStorage() {
+  var testList = localStorage.getItem("list");
+  if (testList) {
+    list = JSON.parse(testList);
+  }
+  setList(list);
+}
+initListStorage();
